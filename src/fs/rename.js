@@ -1,6 +1,6 @@
 import * as url from "url";
 import path from "path";
-import fs from "fs";
+import fs from "fs/promises";
 
 const rename = async () => {
     const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
