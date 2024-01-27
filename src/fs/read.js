@@ -1,7 +1,10 @@
+import * as url from "url";
+import path from "path";
 import fs from 'fs/promises';
 
 const read = async () => {
-    const filePath = new URL("files/fileToRead.txt", import.meta.url);
+    const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
+    const filePath = path.join(__dirname, "files", "fileToRead.txt");
 
     try {
         await fs.access(filePath);
