@@ -7,8 +7,6 @@ const performCalculations = async () => {
     const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
     const filePath = path.join(__dirname, "./worker.js");
 
-    const cores = cpus().length;
-
     const runWorker = (data) =>
         new Promise((resolve, reject) => {
             const worker = new Worker(filePath, { workerData: data });
@@ -22,10 +20,7 @@ const performCalculations = async () => {
             });
         });
 
-    const workerPromises = Array.from({ length: cores }, (_, i) =>
-        runWorker(10 + i)
-    );
-    const results = await Promise.all(workerPromises);
+    const results = await Promise.all(cpus().map((_, i) => runWorker(10 + i)));
 
     console.log(results);
 };
