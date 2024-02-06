@@ -1,8 +1,11 @@
 import fs from "fs/promises";
+import * as url from "url";
+import path from "path";
 import crypto from "crypto";
 
 const calculateHash = async () => {
-    const filePath = new URL("files/fileToCalculateHashFor.txt", import.meta.url);
+    const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
+    const filePath = path.join(__dirname, "files", "fileToCalculateHashFor.txt");
 
     try {
         await fs.access(filePath);
